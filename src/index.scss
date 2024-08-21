@@ -31,11 +31,27 @@ justify-content: space-evenly !important;
 .fs1{
   font-size: 1.1rem;
 }
+@mixin df{
+  display: flex;
+}
 .fs2{
   font-size: 1.2rem;
 }
 .fs3{
   font-size: 1.3rem;
+}
+.dfdr{
+  @include df;
+  flex-direction: row;
+}
+.dfdc{
+@include df;
+flex-direction: column;
+}
+.jcac{
+  @include df;
+  justify-content: center;
+  align-items: center;
 }
 p {
   font-family: "Lato", sans-serif;

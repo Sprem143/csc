@@ -7,7 +7,12 @@
     flex-direction: column;
     z-index: 1000;
   }
-  
+  a{
+    color: white;
+  }
+  .navbar-upper{
+    text-align: left !important;
+  }
   .index-module_type__E-SaG{
     font-size: 1.5rem !important;
   }
@@ -20,13 +25,18 @@
   }
   
   .navbar-lower {
-    background-color: #e08340e8; /* Red */
+    background-color: #e08340; /* Red */
     color: white;
     width: 100%;
     text-align: center;
     box-shadow: -2px 5px 5px 1px rgb(199, 199, 199);
   }
-  
+  .offcanvas-body{
+    background-color: #e08340;
+  }
+  .offcanvas.offcanvas-end{
+    width: 75% !important;
+  }
   .content {
     padding: 15px;
     height: 2000px; /* for scrolling */
@@ -64,10 +74,13 @@
   }
  @media screen and (max-width:996px){
     .name{
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     .index-module_type__E-SaG{
         font-size: 1.1rem !important;
+    }
+    .navbar-nav{
+      align-items: flex-start !important;
     }
  }
   // ------services on hover-----------
