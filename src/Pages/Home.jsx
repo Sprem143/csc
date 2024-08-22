@@ -14,8 +14,19 @@ export default function Home() {
   useEffect(() => {
     verifyToken();
     getdata();
-  }, [token]);
-
+  },[token]);
+  const registerUser=async()=>{
+    try{
+      alert('registerUser')
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:JSON.stringify({username:"Premk@gmail.com", password:"Prem@123"})
+      });
+      result= await result.json();
+      console.log(result.message)
+    }catch(err){console.log(err)}
+  }
   const getdata = async () => {
     try {
       let result = await fetch('https://cp-frontend-o29c.onrender.com/home/getHomePageContent', {
@@ -113,6 +124,8 @@ export default function Home() {
           }} >Save changes</button>
         </div>
       </div>
+
+      <button onClick={registerUser} className='btn btn-primary'> register</button>
     </div>
   );
 }
