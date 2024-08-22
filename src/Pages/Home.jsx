@@ -18,7 +18,7 @@ export default function Home() {
 
   const getdata = async () => {
     try {
-      let result = await fetch('http://localhost:5000/home/getHomePageContent', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/home/getHomePageContent', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -38,7 +38,7 @@ export default function Home() {
       return;
     }
     try {
-      let result = await fetch("http://localhost:5000/auth/verifyToken", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/auth/verifyToken", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export default function Home() {
 
   const updateaboutpara = async (id, content) => {
     try {
-      let result = await fetch('http://localhost:5000/home/updateContent', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/home/updateContent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: content, id: id })

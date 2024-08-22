@@ -14,7 +14,7 @@ export default function AdminLogin() {
     }
     const handleLogin = async () => {
 
-        let result = await fetch("http://localhost:5000/auth/login", {
+        let result = await fetch("https://cp-frontend-o29c.onrender.com/auth/login", {
             method: "POST",
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' }

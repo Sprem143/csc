@@ -12,7 +12,7 @@ function App() {
   const [token, setToken] = useState(null);
 
   const register = () => {
-    axios.post('http://localhost:5000/register', { username, password })
+    axios.post('https://cp-frontend-o29c.onrender.com/register', { username, password })
       .then((response) => {
         console.log(response);
       })
@@ -22,7 +22,7 @@ function App() {
   };
 
   const login = () => {
-    axios.post('http://localhost:5000/login', { username, password })
+    axios.post('https://cp-frontend-o29c.onrender.com/login', { username, password })
       .then((response) => {
         console.log(response.data.token);
         setToken(response.data.token);
@@ -40,7 +40,7 @@ function App() {
   };
 
   const fetchUser = (authToken) => {
-    axios.get('http://localhost:5000/user', {
+    axios.get('https://cp-frontend-o29c.onrender.com/user', {
       headers: {
         Authorization: `Bearer ${authToken}`
       }

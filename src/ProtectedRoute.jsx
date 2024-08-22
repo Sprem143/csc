@@ -11,7 +11,7 @@ export default function ProtectedRoute(){
                 return;
             }
             try {
-                let result = await fetch("http://localhost:5000/auth/verifyToken", {
+                let result = await fetch("https://cp-frontend-o29c.onrender.com/auth/verifyToken", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ export default function Header() {
  },[])
 const setData=async()=>{
   try{
-   let result= await fetch('http://localhost:5000/header/addContent',{
+   let result= await fetch('https://cp-frontend-o29c.onrender.com/header/addContent',{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({tagName:'header',data:{centerName:'Prem Common Service Center', mobileNumber:7366943700,logo1:'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157332/jtxxzfy7ejzf6daliqxg.jpg', logo2:'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157516/jnv8eunahmyaepavuje4.jpg'}})
@@ -38,7 +38,7 @@ const setData=async()=>{
 }
 const getCenterName=async()=>{
   try{
-    let result=await fetch('http://localhost:5000/header/getCenterName',{
+    let result=await fetch('https://cp-frontend-o29c.onrender.com/header/getCenterName',{
       method:'GET',
       headers:{'Content-Type':'application/json'},
     })
