@@ -13,7 +13,6 @@ export default function AdminLogin() {
         alert("Please contact admin to reset your password or username \n Mob- 7366943700 || Email- prem68265@gmail.com")
     }
     const handleLogin = async () => {
-
         let result = await fetch("https://cp-frontend-o29c.onrender.com/auth/login", {
             method: "POST",
             body: JSON.stringify({ username, password }),
@@ -22,10 +21,10 @@ export default function AdminLogin() {
         result = await result.json();
         if (result.token) {
             localStorage.setItem('authToken', result.token);
-            alert("Login successfull");
             navigate('/adminpage');
         } else {
-            setLoginError("Username or Password is wrong")
+            console.log(result);
+            setLoginError(result.message)
         }
     }
     return (
