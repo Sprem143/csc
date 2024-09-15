@@ -47,7 +47,7 @@ export default function Home() {
     if (localStorage.getItem('admin')) {
       try {
         const admin = localStorage.getItem('admin');
-        let result = await fetch('https://cp-frontend-o29c.onrender.com//admin/getadmin', {
+        let result = await fetch('https://cp-frontend-o29c.onrender.com/admin/getadmin', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ adminName: admin })
@@ -63,7 +63,7 @@ export default function Home() {
 
   const getdata = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//home/getHomePageContent', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/home/getHomePageContent', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -94,7 +94,7 @@ export default function Home() {
       return;
     }
     try {
-      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/verifyToken", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export default function Home() {
 
   const updateaboutpara = async (id, content) => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//admin/updateContent', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/admin/updateContent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: content, id: id, admin: admin.adminName, page: 'home' })
@@ -147,7 +147,7 @@ export default function Home() {
 
   // const setData = async () => {
   //   try {
-  //     let result = await fetch('https://cp-frontend-o29c.onrender.com//home/addContentToHome', {
+  //     let result = await fetch('https://cp-frontend-o29c.onrender.com/home/addContentToHome', {
   //       method: 'POST',
   //       headers: { 'Content-Type': 'application/json' },
   //       body: JSON.stringify({

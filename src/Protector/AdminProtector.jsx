@@ -11,7 +11,7 @@ export default function AdminProtector(){
                 return;
             }
             try {
-                let result = await fetch("https://cp-frontend-o29c.onrender.com//admin/verifyToken", {
+                let result = await fetch("https://cp-frontend-o29c.onrender.com/admin/verifyToken", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',

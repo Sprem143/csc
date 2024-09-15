@@ -55,7 +55,7 @@ export default function Header() {
       return;
     }
     try {
-      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/verifyToken", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function Header() {
       return;
     }
     try {
-      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/verifyToken", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export default function Header() {
 
   const getsuperadmin=async()=>{
    try{
-       let result= await fetch('https://cp-frontend-o29c.onrender.com//superadmin/getsuperadmin',{
+       let result= await fetch('https://cp-frontend-o29c.onrender.com/superadmin/getsuperadmin',{
         method:'GET',
         headers:{
           'Content-Type':'application/json',
@@ -121,7 +121,7 @@ export default function Header() {
   const getadmin=async()=>{
     try{
       let admin=localStorage.getItem('admin');
-        let result= await fetch('https://cp-frontend-o29c.onrender.com//admin/getadmin',{
+        let result= await fetch('https://cp-frontend-o29c.onrender.com/admin/getadmin',{
          method:'POST',
          headers:{
            'Content-Type':'application/json',
@@ -139,7 +139,7 @@ export default function Header() {
    }
   const setData = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//header/addContent', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/header/addContent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tagName: 'header', data: { centerName: 'Prem Common Service Center', mobileNumber: 7366943700, logo1: 'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157332/jtxxzfy7ejzf6daliqxg.jpg', logo2: 'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157516/jnv8eunahmyaepavuje4.jpg' } })
@@ -153,7 +153,7 @@ export default function Header() {
   }
   const getCenterName = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//header/getCenterName', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/header/getCenterName', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })

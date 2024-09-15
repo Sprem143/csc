@@ -14,7 +14,7 @@ export default function AdminLogin() {
     }
     const handleLogin = async () => {
 
-        let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/login", {
+        let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/login", {
             method: "POST",
             body: JSON.stringify({ name:username, password:password }),
             headers: { 'Content-Type': 'application/json' }
@@ -36,7 +36,7 @@ export default function AdminLogin() {
     const registerUser=async()=>{
         try{
           alert('registerUser')
-          let result = await fetch('https://cp-frontend-o29c.onrender.com//auth/register', {
+          let result = await fetch('https://cp-frontend-o29c.onrender.com/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify({username:"Premk@gmail.com", password:"Prem@123"})

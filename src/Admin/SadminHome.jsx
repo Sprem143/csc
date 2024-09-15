@@ -47,7 +47,7 @@ export default function SadminHome() {
   }, []);
 const getnotification=async()=>{
   try{
-     let result= await fetch('https://cp-frontend-o29c.onrender.com//superadmin/getnotification',{
+     let result= await fetch('https://cp-frontend-o29c.onrender.com/superadmin/getnotification',{
       method:'GET',
       headers:{'Content-Type':'application/json'},
      })
@@ -62,7 +62,7 @@ const getnotification=async()=>{
 
 const updatenotification=async()=>{
   try{
-   let result= await fetch('https://cp-frontend-o29c.onrender.com//superadmin/updatenotification',{
+   let result= await fetch('https://cp-frontend-o29c.onrender.com/superadmin/updatenotification',{
     method:'PUT',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({notifications})
@@ -73,7 +73,7 @@ const updatenotification=async()=>{
 }
   const getSuperAdmin = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/getsuperadmin', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/getsuperadmin', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       });
@@ -85,7 +85,7 @@ const updatenotification=async()=>{
   }
   const getAdmins = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//admin/getadmins', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/admin/getadmins', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -101,7 +101,7 @@ const updatenotification=async()=>{
   // ---------get updates---------
   const getUpdates = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/getupdates', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/getupdates', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       })
@@ -114,7 +114,7 @@ const updatenotification=async()=>{
   }
   const superadminregistration = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/saregister', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/saregister', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: "superadmin", email: 'premcschariraha@gmail.com', mobile: 7366943700, password: "superadmin", imgUrl: 'https://res-console.cloudinary.com/dfnzn3frw/thumbnails/v1/image/upload/v1724222667/dTJibm82cnFlMThoN2xoMHp6OHM=/preview' })
@@ -138,7 +138,7 @@ const updatenotification=async()=>{
       formData.append('password', password);
       console.log(formData)
       // Send the request to the backend
-      const result = await axios.post("https://cp-frontend-o29c.onrender.com//superadmin/register", formData, {
+      const result = await axios.post("https://cp-frontend-o29c.onrender.com/superadmin/register", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -160,7 +160,7 @@ const updatenotification=async()=>{
   // ----------remove admin---------
   const removeadmin = async (gmail) => {
     try {
-      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/removeadmin", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/removeadmin", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: gmail })
@@ -176,7 +176,7 @@ const updatenotification=async()=>{
   // ---------deactive admin----------
   const deactivate = async (gmail) => {
     try {
-      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/deactivate", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/deactivate", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: gmail })
@@ -190,7 +190,7 @@ const updatenotification=async()=>{
   // ---------deactive admin----------
   const activate = async (gmail) => {
     try {
-      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/activate", {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/activate", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: gmail })
@@ -228,7 +228,7 @@ const updatenotification=async()=>{
   const checkpassword = async () => {
     if (call == 0) {
       try {
-        let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/checkpassword', {
+        let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/checkpassword', {
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
           body: JSON.stringify({ password: password4compare })
@@ -248,7 +248,7 @@ const updatenotification=async()=>{
   }
   const updatepassword = async () => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/updatepassword', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/updatepassword', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -281,7 +281,7 @@ const updatenotification=async()=>{
   }
 
   const updatename = async () => {
-    let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/updatename', {
+    let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/updatename', {
       method: 'PUT',
       headers: {
         'Content-Type': 'applicaion/json',
@@ -297,7 +297,7 @@ const updatenotification=async()=>{
     console.log(newdp)
     formData.append('newdp', newdp);
     console.log(formData)
-    const res = await axios.post("https://cp-frontend-o29c.onrender.com//superadmin/updatedp", formData, {
+    const res = await axios.post("https://cp-frontend-o29c.onrender.com/superadmin/updatedp", formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         // 'Authorization':`Bearer${superAdminToken}`
@@ -344,7 +344,7 @@ const updatenotification=async()=>{
   // ----------undo change-------
   const undochange = async (id, page, cid) => {
     try {
-      let result = await fetch('https://cp-frontend-o29c.onrender.com//superadmin/undochange', {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com/superadmin/undochange', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, page, cid })

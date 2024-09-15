@@ -11,7 +11,7 @@ export default function SuperadminProtector(){
                 return;
             }
             try {
-                let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
+                let result = await fetch("https://cp-frontend-o29c.onrender.com/superadmin/verifyToken", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
