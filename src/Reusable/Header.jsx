@@ -9,48 +9,163 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { TypeAnimation } from 'react-type-animation';
 import { Link, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import 'animate.css';
 import './Header.scss'
 
 export default function Header() {
-  const [centerName, setCenterName]= useState('');
-  const [mobileNumber, setMobileNumber]= useState('');
-  const [logo1,setLogo1]= useState('');
-  const [logo2,setLogo2]= useState('');
+  const navigate = useNavigate();
+  const [centerName, setCenterName] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [logo1, setLogo1] = useState('');
+  const [logo2, setLogo2] = useState('');
+  const [isAdminLogin, setIsAdminLogin] = useState(false);
+  const [isSuperAdminLogin, setIsSuperAdminLogin] = useState(false);
+  const [adminToken,setAdminToken]= useState('');
+  const [superAdminToken,setSuperAdminToken]= useState('');
+  const [admin,setAdmin]= useState({});
+  const [superAdmin,setSuperAdmin]= useState({});
+// ------model setup----------
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
- useEffect(()=>{
-  // setData();
-  getCenterName();
- },[])
-const setData=async()=>{
-  try{
-   let result= await fetch('https://cp-frontend-o29c.onrender.com/header/addContent',{
-     method:'POST',
-     headers:{'Content-Type':'application/json'},
-     body:JSON.stringify({tagName:'header',data:{centerName:'Prem Common Service Center', mobileNumber:7366943700,logo1:'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157332/jtxxzfy7ejzf6daliqxg.jpg', logo2:'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157516/jnv8eunahmyaepavuje4.jpg'}})
 
-   })
-   result= await result.json();
-   console.log(result);
-  }catch(err){
-    console.log(err);
+  useEffect(() => {
+    // setData();
+    getCenterName();
+    if (localStorage.getItem('adminToken')) {
+      const adminToken=localStorage.getItem('adminToken');
+      verifyAdminToken(adminToken);
+    }
+    if (localStorage.getItem('superAdminToken')) {
+      const superAdminToken=localStorage.getItem('superAdminToken');
+      verifySuperAdminToken(superAdminToken);
+      
+    }
+    
+  }, []);
+
+  const verifyAdminToken = async (token) => {
+    if (!token) {
+      setIsAuthenticated(false);
+      navigate('/adminlogin')
+      return;
+    }
+    try {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      result = await result.json();
+      if(result.auth){
+        getadmin();
+      }else{
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('admin');
+        navigate('/adminlogin');
+      }
+    } catch (error) {
+      console.error('Token verification failed:', error);
+      setIsAuthenticated(false);
+    }
   }
-}
-const getCenterName=async()=>{
-  try{
-    let result=await fetch('https://cp-frontend-o29c.onrender.com/header/getCenterName',{
-      method:'GET',
-      headers:{'Content-Type':'application/json'},
-    })
-     result=await result.json();
-    setCenterName(result.centerName.centerName);
-    setMobileNumber(result.centerName.mobileNumber);
-    setLogo1(result.centerName.logo1)
-    setLogo2(result.centerName.logo2)
-  }catch(err){
-    console.log("Error while getting Center Name");
+
+  const verifySuperAdminToken = async (token) => {
+    if (!token) {
+      setIsAuthenticated(false);
+      navigate('/superadminlogin')
+      return;
+    }
+    try {
+      let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      result = await result.json();
+      if(result.auth){
+        getsuperadmin();
+      }else{
+        localStorage.removeItem('superAdminToken');
+        localStorage.removeItem('superadmin');
+        navigate('/superadminlogin')
+      }
+    } catch (error) {
+      console.error('Token verification failed:', error);
+      setIsAuthenticated(false);
+    }
   }
-}
+
+  const getsuperadmin=async()=>{
+   try{
+       let result= await fetch('https://cp-frontend-o29c.onrender.com//superadmin/getsuperadmin',{
+        method:'GET',
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization':`Bearer${superAdminToken}`
+        }
+       })
+   }catch(err){
+    console.log(err)
+   } 
+  }
+
+  const getadmin=async()=>{
+    try{
+      let admin=localStorage.getItem('admin');
+        let result= await fetch('https://cp-frontend-o29c.onrender.com//admin/getadmin',{
+         method:'POST',
+         headers:{
+           'Content-Type':'application/json',
+           'Authorization':`Bearer${adminToken}`
+         },
+           body:JSON.stringify({adminName:admin})
+        })
+        result= await result.json();
+        setIsAdminLogin(true);
+        setAdmin(result.result);
+        console.log(result.result)
+      }catch(err){
+     console.log(err)
+    } 
+   }
+  const setData = async () => {
+    try {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com//header/addContent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tagName: 'header', data: { centerName: 'Prem Common Service Center', mobileNumber: 7366943700, logo1: 'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157332/jtxxzfy7ejzf6daliqxg.jpg', logo2: 'http://res.cloudinary.com/dfnzn3frw/image/upload/v1724157516/jnv8eunahmyaepavuje4.jpg' } })
+
+      })
+      result = await result.json();
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  const getCenterName = async () => {
+    try {
+      let result = await fetch('https://cp-frontend-o29c.onrender.com//header/getCenterName', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      result = await result.json();
+      setCenterName(result.centerName.centerName);
+      setMobileNumber(result.centerName.mobileNumber);
+      setLogo1(result.centerName.logo1)
+      setLogo2(result.centerName.logo2)
+    } catch (err) {
+      console.log("Error while getting Center Name");
+    }
+  }
 
   window.onscroll = function () {
     handleScroll();
@@ -58,7 +173,7 @@ const getCenterName=async()=>{
 
   function handleScroll() {
     var upperNavbar = document.getElementById("navbar-upper");
-    if (window.scrollY >= 30) { // You can adjust the value for when the upper navbar should disappear
+    if (window.scrollY >= 20) { // You can adjust the value for when the upper navbar should disappear
       upperNavbar.style.display = "none";
     } else {
       upperNavbar.style.display = "block";
@@ -67,8 +182,45 @@ const getCenterName=async()=>{
     }
   }
 
+  const logoutAdmin = () => {
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('admin');
+    window.location.reload()
+  }
+  const logoutSuperAdmin = () => {
+    localStorage.removeItem('superAdminToken');
+    localStorage.removeItem('superadmin');
+    window.location.reload()
+  }
+
   return (
     <>
+    {/* ---------admin portion------- */}
+    {
+      admin.adminName && <Button onClick={handleShow} className='profile_btn'>
+      <img src="static\images\csc.png" alt="" style={{height:'60px', borderRadius:'50%'}}/>
+     </Button>
+    }
+    
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{admin.adminName}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={admin.imgUrl} alt="" style={{height:'100px', width:'100px', borderRadius:'50%'}}/>
+          <hr />
+          <p>Name: {admin.email}</p>
+          <p>Mobile: {admin.mobile}</p>
+          <p>Status: {admin.isActive?'True': 'False'}</p>
+          <p>Role: Admin</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="navbar" id="navbar">
         <div className="navbar-upper" id="navbar-upper">
           <div className="container-fluid">
@@ -111,10 +263,19 @@ const getCenterName=async()=>{
               </div>
               <div className="col-lg-4 col-sm-12 d-flex">
                 <span className='animate__animated animate__pulse name' > {centerName}  </span>
-                <DropdownButton id="dropdown-basic-button" className='ms-3' style={{zIndex:'10000'}} title="">
-      <Dropdown.Item href="#/action-1"> <Link to="/superadmin">Super Admin</Link> </Dropdown.Item>
-      <Dropdown.Item href="#/action-1"><Link to="/admin">Admin</Link></Dropdown.Item>
-    </DropdownButton>
+                <DropdownButton id="dropdown-basic-button" className='ms-3' style={{ zIndex: '10000' }} title="">
+                  <Dropdown.Item >
+                    {
+                      !isSuperAdminLogin ? <Link to="/superadminlogin"><span className='text-dark'>Super Admin</span></Link> :
+                        <Link onClick={logoutSuperAdmin}><span className='text-dark'>Log out</span></Link>
+                    }
+
+                  </Dropdown.Item>
+                  {
+                    !isAdminLogin ? <Dropdown.Item ><Link to="/adminlogin"><span className='text-dark'>Admin</span></Link></Dropdown.Item> :
+                      <Link onClick={logoutAdmin}><span className='text-dark ms-3'>Log out</span></Link>
+                  }
+                </DropdownButton>
               </div>
             </div>
           </div>
@@ -137,8 +298,8 @@ const getCenterName=async()=>{
                   >
                     <Offcanvas.Header closeButton>
                       <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                      <img src={logo1} style={{ borderRadius: '50%' }} alt="logo2" height='50' />
-                      <span className='ms-4'>Prem CSC</span>
+                        <img src={logo1} style={{ borderRadius: '50%' }} alt="logo2" height='50' />
+                        <span className='ms-4'>Prem CSC</span>
                       </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
@@ -147,53 +308,53 @@ const getCenterName=async()=>{
                         <Nav.Link id='service' href="#action2">
                           Services
                           <div className="option option_service dc">
-                          <a href="">PAN Card</a>
-                          <a href="">E-Shram Card</a>
-                          <a href="">Ayushman Card</a>
-                          <a href="">Insurance</a>
-                          <a href="">AEPS Service</a>
-                          <a href="">Print</a>
-                        </div>
-                          </Nav.Link>
+                            <a href="">PAN Card</a>
+                            <a href="">E-Shram Card</a>
+                            <a href="">Ayushman Card</a>
+                            <a href="">Insurance</a>
+                            <a href="">AEPS Service</a>
+                            <a href="">Print</a>
+                          </div>
+                        </Nav.Link>
 
-                          <Nav.Link id='bank' href="#action2">
+                        <Nav.Link id='bank' href="#action2">
                           Banking
                           <div className="option option_bank dc">
-                          <a href="">Account Opening</a>
-                          <a href="">Cash Withdraw</a>
-                          <a href="">Cash Deposite</a>
-                          <a href="">KYC</a>
-                          <a href="">Transter</a>
-                          <a href="">UPI Payment</a>
-                        </div>
-                          </Nav.Link>
+                            <a href="">Account Opening</a>
+                            <a href="">Cash Withdraw</a>
+                            <a href="">Cash Deposite</a>
+                            <a href="">KYC</a>
+                            <a href="">Transter</a>
+                            <a href="">UPI Payment</a>
+                          </div>
+                        </Nav.Link>
 
-                          <Nav.Link id='rtps' href="#action2">
+                        <Nav.Link id='rtps' href="#action2">
                           RTPS Services
                           <div className="option option_rtps dc">
-                          <a href="">Cast Certificate</a>
-                          <a href="">Residence Certificate</a>
-                          <a href="">Income certificate</a>
-                          <a href="">NCL</a>
-                          <a href="">Character Certificate</a>
-                          <a href="">EWS</a>
-                        </div>
-                          </Nav.Link>
+                            <a href="">Cast Certificate</a>
+                            <a href="">Residence Certificate</a>
+                            <a href="">Income certificate</a>
+                            <a href="">NCL</a>
+                            <a href="">Character Certificate</a>
+                            <a href="">EWS</a>
+                          </div>
+                        </Nav.Link>
 
-                          <Nav.Link id='branch' href="#action2">
+                        <Nav.Link id='branch' href="#action2">
                           Branches
                           <div className="option option_branch dc">
-                          <a href="">Ram CSP - Fakirna- Ram Kumar Sahu</a>
-                          <a href="">Jai Mata Di CSC- Hariraha - AJay Kumar Sutihar</a>
-                        </div>
-                          </Nav.Link>
+                            <a href="">Ram CSP - Fakirna- Ram Kumar Sahu</a>
+                            <a href="">Jai Mata Di CSC- Hariraha - AJay Kumar Sutihar</a>
+                          </div>
+                        </Nav.Link>
 
-                          <Nav.Link href="#action2">About</Nav.Link>
-                          <Nav.Link href="#action2">Contact</Nav.Link>
-                          <Nav.Link href="#action2">Privacy & Policy</Nav.Link>
+                        <Nav.Link href="#action2">About</Nav.Link>
+                        <Nav.Link href="#action2">Contact</Nav.Link>
+                        <Nav.Link href="#action2">Privacy & Policy</Nav.Link>
                       </Nav>
                       <Navbar.Brand href="#">
-                        <img src={logo2} alt="logo1" height='90' style={{borderRadius:'10px'}} />
+                        <img src={logo2} alt="logo1" height='90' style={{ borderRadius: '10px' }} />
                       </Navbar.Brand>
                     </Offcanvas.Body>
 
@@ -204,7 +365,10 @@ const getCenterName=async()=>{
           </div>
         </div>
       </div>
-      <Outlet/>
+      <Outlet />
+
+      
+
     </>
   )
 }

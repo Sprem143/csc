@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 import axios from "axios";
-export default function AdminPage(){
+export default function adminhome(){
 const [centername, setCentername]= useState('');
 const [mobileNumber,setMobileNumber] = useState('');
 const [logo1,setLogo1]= useState('');
@@ -8,7 +8,7 @@ const [logo2,setLogo2]= useState('');
 
     const editCenterName=async(e)=>{
         e.preventDefault();
-        let result= await fetch('https://cp-frontend-o29c.onrender.com/header/editCenterName',{
+        let result= await fetch('https://cp-frontend-o29c.onrender.com//header/editCenterName',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({centerName:centername, tagName:'header'})
@@ -22,7 +22,7 @@ const [logo2,setLogo2]= useState('');
 
       const editMobileNumber=async(e)=>{
         e.preventDefault();
-        let result= await fetch('https://cp-frontend-o29c.onrender.com/header/editCenterName',{
+        let result= await fetch('https://cp-frontend-o29c.onrender.com//header/editCenterName',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({mobileNumber:mobileNumber, tagName:'header'})
@@ -49,7 +49,7 @@ const [logo2,setLogo2]= useState('');
       alert('Please select file')
     }
     try {
-      const res = await axios.post("https://cp-frontend-o29c.onrender.com/header/uploadLogo", formData, {
+      const res = await axios.post("https://cp-frontend-o29c.onrender.com//header/uploadLogo", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

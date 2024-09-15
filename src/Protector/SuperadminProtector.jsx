@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export default function ProtectedRoute(){
+export default function SuperadminProtector(){
     const [isAuthenticated, setIsAuthenticated] = useState(null);
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('superAdminToken');
     useEffect(() => {
         const verifyToken = async () => {
             if (!token) {
@@ -11,7 +11,7 @@ export default function ProtectedRoute(){
                 return;
             }
             try {
-                let result = await fetch("https://cp-frontend-o29c.onrender.com/auth/verifyToken", {
+                let result = await fetch("https://cp-frontend-o29c.onrender.com//superadmin/verifyToken", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -37,6 +37,6 @@ export default function ProtectedRoute(){
     if (isAuthenticated === null) {
         return <div>Loading...</div>; // Optionally show a loading state while verifying
     }
-    return isAuthenticated ? <Outlet/> : <Navigate to="/admin" />;
+    return isAuthenticated ? <Outlet/> : <Navigate to="/superadminlogin" />;
 };
 
